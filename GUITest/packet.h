@@ -10,7 +10,8 @@ class Packet : public QObject
 public:
     explicit Packet(QObject *parent = nullptr);//ヌルポインタを設定
     Packet(const int number,
-           const double time,
+           //const double time,
+           const QString &date,
            const QString &source,
            const QString &dest,
            const QString &protocol,
@@ -22,11 +23,14 @@ signals:
 public slots:
 
 private:
-    int number,time;
-    QString source,dest,protocol,length;
+    int number;
+    //double time;
+    QString date,source,dest,protocol,length;
 public:
-    QString &getSource(),&getDest(),&getProtocol(),&getLength();
-    int getNumber(),getTime();
+    QString &getDate(),&getSource(),&getDest(),&getProtocol(),&getLength();
+    int getNumber();
+    //double getTime();
+    std::vector<QString> getStatusVector();
 };
 
 #endif // PACKET_H

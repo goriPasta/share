@@ -22,6 +22,9 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role=Qt::DisplayRole)const override;
     //データの追加
     void add(Packet *packet);
+    Packet* getPacket(double);
+    int getSizeofList();
+    void clearList();
 private:
     //実際のデータ配列
     QVector<Packet*>list;

@@ -30,7 +30,7 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
     case 0:
         return list[index.row()]->getNumber();
     case 1:
-        return list[index.row()]->getTime();
+        return list[index.row()]->getDate();
     case 2:
         return list[index.row()]->getSource();
     case 3:
@@ -54,7 +54,7 @@ QVariant ListModel::headerData(int section, Qt::Orientation orientation, int rol
         case 0:
             return tr("No.");
         case 1:
-            return tr("Time");
+            return tr("Date");
         case 2:
             return tr("Source");
         case 3:
@@ -76,4 +76,14 @@ void ListModel::add(Packet *packet)
     beginInsertRows(QModelIndex(),list.count(),list.count());
     list.append(packet);
     endInsertRows();
+}
+int ListModel::getSizeofList(){
+    return list.size();
+}
+void ListModel::clearList(){
+    list.clear();
+    this->resetInternalData();
+}
+Packet* ListModel::getPacket(double index){
+    return list[index];
 }

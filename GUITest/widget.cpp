@@ -52,6 +52,8 @@ Widget::Widget(QWidget *parent) :
   //model->add(new Parson(tr("Taro Yamada"), 21));
   //model->add(new Parson(tr("Hanako Yamada"), 22));
   //connect(ui->pushButton, &QPushButton::clicked, this, &Widget::on_pushButton_clicked);
+
+  ds=new DeviceSelect(this);
   pcap_if_t *ii;
       std::string dev;
       std::vector<std::string> devlist;
@@ -68,7 +70,9 @@ Widget::Widget(QWidget *parent) :
           ui->comboBox->addItem(device.c_str());
           //devlist.emplace_back(device);
           count++;
+
       }
+
 
 
   m.on("UDP", [&](const pm::Property& p) {    //イベント "UDP"のコールバック関数
@@ -155,10 +159,17 @@ Widget::Widget(QWidget *parent) :
   //m.add_pcapdev("enp0s3");
   //m.start();
 }
+void Widget::capture(QString na){
+    //QString devname=(ui->comboBox->currentText());
+    std::string name=na.toStdString();
+    m.add_pcapdev(name);
+    m.start();
+}
 Widget::~Widget()
 {
   delete model;
   delete ui;
+  //delete ds;
 }
 void Widget::on_pushButton_clicked(bool checked)
 {
@@ -174,9 +185,11 @@ void Widget::on_pushButton_clicked(bool checked)
 
 void Widget::on_pushButton_clicked()
 {
-    QString devname=(ui->comboBox->currentText());
+    /*QString devname=(ui->comboBox->currentText());
     std::string name=devname.toStdString();
     m.add_pcapdev(name);
-    m.start();
+    m.start();*/
+    ds->show();
+
 }
 
